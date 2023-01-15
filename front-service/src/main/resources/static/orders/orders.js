@@ -1,10 +1,16 @@
-angular.module('market').controller('ordersController', function ($scope, $http) {
+angular.module('market-front').controller('ordersController', function ($scope, $http, $location) {
+    const contextPath = 'http://localhost:5555/core/';
+
     $scope.loadOrders = function () {
-        $http.get('http://localhost:5555/core/api/v1/orders')
+        $http.get(contextPath + 'api/v1/orders')
             .then(function (response) {
-                $scope.orders = response.data;
+                $scope.MyOrders = response.data;
             });
-    };
+    }
+
+    $scope.goToPay = function (orderId) {
+        $location.path('/order_pay/' + orderId);
+    }
 
     $scope.loadOrders();
 });
